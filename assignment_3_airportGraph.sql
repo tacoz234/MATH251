@@ -1,0 +1,123 @@
+-- =====================================================================
+-- MATH 251 / SQL Lab: Graph Data with Relations (USA Airports)
+-- Topic: Representing a directed graph using two relations: nodes + edges
+-- Allowed SQL today: CREATE TABLE + INSERT only
+-- Not required: SELECT, JOIN, GROUP BY, UPDATE, DELETE, ALTER
+--
+-- What you will build:
+--   1) nodes: one row per airport (node)
+--   2) edges: one row per directed connection (edge)  a -> b
+--
+-- Constraints you must enforce:
+--   - nodes.id is a PRIMARY KEY
+--   - edges.a and edges.b are FOREIGN KEYS referencing nodes(id)
+--   - edges has a PRIMARY KEY on (a, b)
+--   - use ON UPDATE CASCADE ON DELETE CASCADE on both foreign keys
+--
+-- ---------------------------------------------------------------------
+-- PART 1 — Create tables
+-- ---------------------------------------------------------------------
+-- Write SQL to create:
+--   A) a table named nodes with columns:
+--        id (integer), code (3 chars), city (text), state (2 chars)
+--      and appropriate NOT NULL constraints.
+--   B) a table named edges with columns:
+--        a (integer), b (integer), label (text)
+--      plus the foreign keys and the composite primary key.
+--
+-- >>> YOUR SQL FOR PART 1 GOES BELOW <<<
+-- (Write your CREATE TABLE statements here.)
+
+
+
+-- ---------------------------------------------------------------------
+-- PART 2 — Insert airports (nodes)
+-- ---------------------------------------------------------------------
+-- Insert ALL of the following airports into nodes.
+-- You must insert exactly these rows (same ids/codes).
+--
+--  id | code | city           | state
+-- ----+------+----------------+------
+--   1 | JFK  | New York       | NY
+--   2 | LAX  | Los Angeles    | CA
+--   3 | ORD  | Chicago        | IL
+--   4 | ATL  | Atlanta        | GA
+--   5 | DFW  | Dallas         | TX
+--   6 | DEN  | Denver         | CO
+--   7 | SEA  | Seattle        | WA
+--   8 | MIA  | Miami          | FL
+--   9 | SFO  | San Francisco  | CA
+--  10 | BOS  | Boston         | MA
+--  11 | IAD  | Washington     | VA
+--  12 | PHX  | Phoenix        | AZ
+--  13 | MSP  | Minneapolis    | MN
+--  14 | DTW  | Detroit        | MI
+--  15 | LAS  | Las Vegas      | NV
+--  16 | CLT  | Charlotte      | NC
+--
+-- >>> YOUR SQL FOR PART 2 GOES BELOW <<<
+-- (Write your INSERT statement(s) here.)
+
+
+
+-- ---------------------------------------------------------------------
+-- PART 3 — Insert connections (edges)
+-- ---------------------------------------------------------------------
+-- Insert ALL of the following directed edges into edges.
+-- Each row represents a direct connection a -> b.
+-- Use label = 'route' for all edges.
+--
+--  a  ->  b
+-- ----    ----
+--  10 ->  1    (BOS -> JFK)
+--   1 -> 10    (JFK -> BOS)
+--  10 ->  3    (BOS -> ORD)
+--   1 ->  4    (JFK -> ATL)
+--   1 ->  8    (JFK -> MIA)
+--   1 -> 11    (JFK -> IAD)
+--  11 ->  4    (IAD -> ATL)
+--  11 ->  1    (IAD -> JFK)
+--   4 -> 16    (ATL -> CLT)
+--  16 ->  4    (CLT -> ATL)
+--   4 ->  8    (ATL -> MIA)
+--   8 ->  4    (MIA -> ATL)
+--   4 ->  5    (ATL -> DFW)
+--   5 ->  4    (DFW -> ATL)
+--   3 ->  6    (ORD -> DEN)
+--   6 ->  3    (DEN -> ORD)
+--   3 -> 13    (ORD -> MSP)
+--  13 ->  3    (MSP -> ORD)
+--  13 -> 14    (MSP -> DTW)
+--  14 -> 13    (DTW -> MSP)
+--   5 -> 12    (DFW -> PHX)
+--  12 ->  5    (PHX -> DFW)
+--   2 ->  9    (LAX -> SFO)
+--   9 ->  2    (SFO -> LAX)
+--
+-- >>> YOUR SQL FOR PART 3 GOES BELOW <<<
+-- (Write your INSERT statement(s) here.)
+
+
+
+-- ---------------------------------------------------------------------
+-- PART 4 — Add your own (student extension)
+-- ---------------------------------------------------------------------
+-- Add:
+--   - 2 new airports (new ids that do not conflict with 1..16)
+--   - 4 new directed edges that involve at least one of your new airports
+-- Use label = 'route' for your new edges.
+--
+-- >>> YOUR SQL FOR PART 4 GOES BELOW <<<
+-- (Write your INSERT statement(s) here.)
+
+
+
+-- ---------------------------------------------------------------------
+-- Turn-in checklist (self-check)
+-- ---------------------------------------------------------------------
+-- [ ] nodes table created with correct columns and PRIMARY KEY
+-- [ ] edges table created with two FOREIGN KEYS + PRIMARY KEY (a,b)
+-- [ ] inserted all 16 given airports
+-- [ ] inserted all 24 given edges (each is directed)
+-- [ ] added 2 airports + 4 edges of your own
+-- =====================================================================
