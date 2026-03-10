@@ -26,7 +26,22 @@
 --      plus the foreign keys and the composite primary key.
 --
 -- >>> YOUR SQL FOR PART 1 GOES BELOW <<<
--- (Write your CREATE TABLE statements here.)
+
+CREATE TABLE nodes (
+    id INTEGER PRIMARY KEY,
+    code CHAR(3) NOT NULL,
+    city TEXT NOT NULL,
+    state CHAR(2) NOT NULL
+);
+
+CREATE TABLE edges (
+    a INTEGER NOT NULL,
+    b INTEGER NOT NULL,
+    label TEXT NOT NULL,
+    PRIMARY KEY (a, b),
+    FOREIGN KEY (a) REFERENCES nodes(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (b) REFERENCES nodes(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
 
@@ -56,7 +71,25 @@
 --  16 | CLT  | Charlotte      | NC
 --
 -- >>> YOUR SQL FOR PART 2 GOES BELOW <<<
--- (Write your INSERT statement(s) here.)
+
+INSERT INTO nodes (id, code, city, state)
+VALUES
+    (1, 'JFK', 'New York', 'NY'),
+    (2, 'LAX', 'Los Angeles', 'CA'),
+    (3, 'ORD', 'Chicago', 'IL'),
+    (4, 'ATL', 'Atlanta', 'GA'),
+    (5, 'DFW', 'Dallas', 'TX'),
+    (6, 'DEN', 'Denver', 'CO'),
+    (7, 'SEA', 'Seattle', 'WA'),
+    (8, 'MIA', 'Miami', 'FL'),
+    (9, 'SFO', 'San Francisco', 'CA'),
+    (10, 'BOS', 'Boston', 'MA'),
+    (11, 'IAD', 'Washington', 'VA'),
+    (12, 'PHX', 'Phoenix', 'AZ'),
+    (13, 'MSP', 'Minneapolis', 'MN'),
+    (14, 'DTW', 'Detroit', 'MI'),
+    (15, 'LAS', 'Las Vegas', 'NV'),
+    (16, 'CLT', 'Charlotte', 'NC');
 
 
 
@@ -95,7 +128,33 @@
 --   9 ->  2    (SFO -> LAX)
 --
 -- >>> YOUR SQL FOR PART 3 GOES BELOW <<<
--- (Write your INSERT statement(s) here.)
+
+INSERT INTO edges (a, b, label)
+VALUES
+    (10, 1, 'route'),
+    (1, 10, 'route'),
+    (10, 3, 'route'),
+    (1, 4, 'route'),
+    (1, 8, 'route'),
+    (1, 11, 'route'),
+    (11, 4, 'route'),
+    (11, 1, 'route'),
+    (4, 16, 'route'),
+    (16, 4, 'route'),
+    (4, 8, 'route'),
+    (8, 4, 'route'),
+    (4, 5, 'route'),
+    (5, 4, 'route'),
+    (3, 6, 'route'),
+    (6, 3, 'route'),
+    (3, 13, 'route'),
+    (13, 3, 'route'),
+    (13, 14, 'route'),
+    (14, 13, 'route'),
+    (5, 12, 'route'),
+    (12, 5, 'route'),
+    (2, 9, 'route'),
+    (9, 2, 'route');
 
 
 
@@ -109,6 +168,18 @@
 --
 -- >>> YOUR SQL FOR PART 4 GOES BELOW <<<
 -- (Write your INSERT statement(s) here.)
+
+INSERT INTO nodes (id, code, city, state)
+VALUES
+    (17, 'RDU', 'Raleigh', 'NC'),
+    (18, 'BNA', 'Nashville', 'TN');
+
+INSERT INTO edges (a, b, label)
+VALUES
+    (16, 17, 'route'),
+    (17, 16, 'route'),
+    (17, 18, 'route'),
+    (18, 17, 'route');
 
 
 
