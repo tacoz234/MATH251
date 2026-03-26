@@ -185,17 +185,23 @@ PART 2. BASIC SELECT QUERIES
 */
 
 -- Q1. Show all columns for the first 5 rows.
-
+SELECT *
+FROM flights
+LIMIT 5;
 
 
 
 -- Q2. Show only carrier, flight, origin, and dest for the first 10 rows.
-
+SELECT carrier, flight, origin, dest
+FROM flights
+LIMIT 10;
 
 
 
 -- Q3. Show only origin and dest for the first 10 rows.
-
+SELECT origin, dest
+FROM flights
+LIMIT 10;
 
 
 
@@ -206,38 +212,60 @@ PART 3. WHERE CLAUSE
 */
 
 -- Q4. Show the flights whose destination is 'ORD' for the first 10 rows.
-
+SELECT *
+FROM flights
+WHERE dest = 'ORD'
+LIMIT 10;
 
 
 
 -- Q5. Show the flights whose origin is 'JFK' for the first 10 rows.
-
+SELECT *
+FROM flights
+WHERE origin = 'JFK'
+LIMIT 10;
 
 
 
 -- Q6. Show all flights in January (month = 1) for the first 10 rows.
-
+SELECT *
+FROM flights
+WHERE month = 1
+LIMIT 10;
 
 
 -- Q7. Show carrier, flight, origin, dest, dep_delay
 -- for flights with dep_delay greater than 60 for the first 10 rows.
-
+SELECT carrier, flight, origin, dest, dep_delay
+FROM flights
+WHERE dep_delay > 60
+LIMIT 10;
 
 
 
 -- Q8. Show carrier, flight, origin, dest, distance
 -- for flights whose distance is greater than 2000 for the first 10 rows.
-
+SELECT carrier, flight, origin, dest, distance
+FROM flights
+WHERE distance > 2000
+LIMIT 10;
 
 
 
 -- Q9. Show all flights from JFK to MIA for the first 10 rows.
+SELECT *
+FROM flights
+WHERE origin = 'JFK' AND dest = 'MIA'
+LIMIT 10;
 
 
 
 
 -- Q10. Show all flights from EWR with dep_delay greater than 30 for the first 10 rows.
-
+SELECT *
+FROM flights
+WHERE origin = 'EWR' AND dep_delay > 30
+LIMIT 10;
 
 
 /*
@@ -247,26 +275,38 @@ PART 4. ORDER BY
 */
 
 -- Q11. Show the first 10 rows ordered by dep_delay from smallest to largest.
-
+SELECT *
+FROM flights
+ORDER BY dep_delay ASC
+LIMIT 10;
 
 
 
 -- Q12. Show the first 10 rows ordered by dep_delay from largest to smallest.
-
+SELECT *
+FROM flights
+ORDER BY dep_delay DESC
+LIMIT 10;
 
 
 
 -- Q13. Show carrier, flight, origin, dest, distance
 -- ordered by distance from largest to smallest.
 -- Return only the first 10 rows.
-
+SELECT carrier, flight, origin, dest, distance
+FROM flights
+ORDER BY distance DESC
+LIMIT 10;
 
 
 
 -- Q14. Show carrier, flight, origin, dest, arr_delay
 -- ordered by arr_delay from largest to smallest.
 -- Return only the first 10 rows.
-
+SELECT carrier, flight, origin, dest, arr_delay
+FROM flights
+ORDER BY arr_delay DESC
+LIMIT 10;
 
 
 
@@ -277,22 +317,31 @@ PART 5. DISTINCT
 */
 
 -- Q15. Show the distinct origin airports for the first 10 rows.
-
+SELECT DISTINCT origin
+FROM flights
+LIMIT 10;
 
 
 
 -- Q16. Show the distinct destination airports for the first 10 rows.
-
+SELECT DISTINCT dest
+FROM flights
+LIMIT 10;
 
 
 
 -- Q17. Show the distinct carriers for the first 10 rows.
+SELECT DISTINCT carrier
+FROM flights
+LIMIT 10;
 
 
 
 
 -- Q18. Show the distinct pairs (origin, dest) for the first 10 rows.
-
+SELECT DISTINCT origin, dest
+FROM flights
+LIMIT 10;
 
 
 
@@ -304,24 +353,41 @@ PART 6. COMBINING WHERE, ORDER BY, AND LIMIT
 
 -- Q19. Show the 10 most delayed flights departing from JFK.
 -- Include carrier, flight, dest, dep_delay.
-
+SELECT carrier, flight, dest, dep_delay
+FROM flights
+WHERE origin = 'JFK'
+ORDER BY dep_delay DESC
+LIMIT 10;
 
 
 
 -- Q20. Show the 10 longest flights departing from LGA.
 -- Include carrier, flight, dest, distance.
+SELECT carrier, flight, dest, distance
+FROM flights
+WHERE origin = 'LGA'
+ORDER BY distance DESC
+LIMIT 10;
 
 
 
 
 -- Q21. Show the first 10 flights from EWR to ORD ordered by dep_time.
-
+SELECT carrier, flight, origin, dest, dep_time
+FROM flights
+WHERE origin = 'EWR' AND dest = 'ORD'
+ORDER BY dep_time ASC
+LIMIT 10;
 
 
 
 -- Q22. Show the first 10 flights to MIA with arr_delay greater than 30,
 -- ordered by arr_delay from largest to smallest.
-
+SELECT carrier, flight, origin, dest, arr_delay
+FROM flights
+WHERE dest = 'MIA' AND arr_delay > 30
+ORDER BY arr_delay DESC
+LIMIT 10;
 
 
 
@@ -350,14 +416,22 @@ Suggested idea:
 -- Q23. Create a small table-ready result showing 10 flights from JFK.
 -- Include: day, dep_time, dep_delay, dest
 -- Order by dep_delay from largest to smallest.
-
+SELECT day, dep_time, dep_delay, dest
+FROM flights
+WHERE origin = 'JFK'
+ORDER BY dep_delay DESC
+LIMIT 10;
 
 
 
 -- Q24. Create a small table-ready result showing 10 flights to ORD.
 -- Include: origin, carrier, flight, arr_delay
 -- Order by arr_delay from largest to smallest.
-
+SELECT origin, carrier, flight, arr_delay
+FROM flights
+WHERE dest = 'ORD'
+ORDER BY arr_delay DESC
+LIMIT 10;
 
 
 
@@ -365,7 +439,11 @@ Suggested idea:
 -- Include: origin, dest, distance, carrier
 -- Only include flights with distance > 2000
 -- Order by distance from largest to smallest.
-
+SELECT origin, dest, distance, carrier
+FROM flights
+WHERE distance > 2000
+ORDER BY distance DESC
+LIMIT 10;
 
 
 
@@ -394,12 +472,13 @@ Answer the following using SQL comments.
 */
 
 -- Reflection 1:
-
+-- The easiest query was Q1, which was to show all columns for the first 5 rows.
 
 -- Reflection 2:
-
+-- The most challenging query was Q22, which was to show the first 10 flights to MIA with arr_delay greater than 30, ordered by arr_delay from largest to smallest.
 
 -- Reflection 3:
+-- LIMIT is useful when working with a large dataset because it allows you to see only the first few rows of the dataset, which can help you understand the structure of the data and how to work with it.
 
 
 /*
