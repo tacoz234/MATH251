@@ -168,7 +168,7 @@ Example Windows:
 -- COPY flights
 -- FROM '/full/path/to/flights.csv'
 -- WITH (FORMAT CSV, HEADER TRUE);
-\copy flights FROM 'nycflights.csv' WITH (FORMAT CSV, HEADER TRUE);
+\copy flights FROM 'flights.csv' WITH (FORMAT CSV, HEADER TRUE);
 
 /*
 Run this query after importing to confirm that the table is not empty.
