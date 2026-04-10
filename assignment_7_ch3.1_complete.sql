@@ -166,7 +166,10 @@ CREATE TABLE chicagoschools (
 -- From nycflights, show 10 flights from JFK to LAX with departure delay greater than 60 minutes.
 -- Show: carrier, flight, origin, dest, dep_delay
 -- Write your query below.
-
+select carrier, flight, origin, dest, dep_delay
+from nycflights
+where origin = 'JFK' and dest = 'LAX' and dep_delay > 60
+limit 10;
 
 
 -- =====================================================================================
@@ -174,7 +177,9 @@ CREATE TABLE chicagoschools (
 -- From nycflights, show 10 distinct (carrier, origin) pairs.
 -- Show: carrier, origin
 -- Write your query below.
-
+select distinct carrier, origin
+from nycflights
+limit 10;
 
 
 -- =====================================================================================
@@ -183,7 +188,10 @@ CREATE TABLE chicagoschools (
 -- Show each destination only once.
 -- Show: dest
 -- Write your query below.
-
+select distinct dest
+from nycflights
+where dest like 'S__'
+limit 10;
 
 
 -- =====================================================================================
@@ -193,7 +201,11 @@ CREATE TABLE chicagoschools (
 -- Order from highest frequency to lowest frequency.
 -- Limit output to 10 records.
 -- Write your query below.
-
+select dest, count(*) as frequency
+from nycflights
+group by dest
+order by frequency desc
+limit 10;
 
 
 -- =====================================================================================
@@ -205,7 +217,13 @@ CREATE TABLE chicagoschools (
 -- Show: origin, short_flights, medium_flights, long_flights
 -- Limit output to 10 records.
 -- Write your query below.
-
+select origin, 
+       count(case when distance < 500 then 1 end) as short_flights,
+       count(case when distance >= 500 and distance <= 1000 then 1 end) as medium_flights,
+       count(case when distance > 1000 then 1 end) as long_flights
+from nycflights
+group by origin
+limit 10;
 
 
 -- =====================================================================================
@@ -214,7 +232,10 @@ CREATE TABLE chicagoschools (
 -- Show: salary_or_hourly, frequency
 -- Limit output to 10 records.
 -- Write your query below.
-
+select salary_or_hourly, count(*) as frequency
+from chicagoemployees
+group by salary_or_hourly
+limit 10;
 
 
 -- =====================================================================================
@@ -223,7 +244,8 @@ CREATE TABLE chicagoschools (
 -- Show: probability
 -- This question naturally returns a single number, so LIMIT is not required.
 -- Write your query below.
-
+select count(case when salary_or_hourly = 'HOURLY' then 1 end) * 1.0 / count(*) as probability
+from chicagoemployees;
 
 
 -- =====================================================================================
@@ -231,7 +253,10 @@ CREATE TABLE chicagoschools (
 -- From chicagoemployees, show 10 full-time employees whose job title contains the word 'POLICE'.
 -- Show: name, job_titles, department
 -- Write your query below.
-
+select name, job_titles, department
+from chicagoemployees
+where full_or_part_time = 'FULL-TIME' and job_titles like '%POLICE%'
+limit 10;
 
 
 -- =====================================================================================
@@ -240,7 +265,11 @@ CREATE TABLE chicagoschools (
 -- Ignore rows where max_temp is NULL.
 -- Show: date, max_temp, sunshine
 -- Write your query below.
-
+select date, max_temp, sunshine
+from londonweather
+where max_temp is not null
+order by max_temp desc
+limit 10;
 
 
 -- =====================================================================================
@@ -252,7 +281,14 @@ CREATE TABLE chicagoschools (
 -- Show: temp_category, days_count
 -- Limit output to 10 records.
 -- Write your query below.
-
+select case when max_temp < 10 then 'Cold'
+            when max_temp >= 10 and max_temp < 20 then 'Mild'
+            when max_temp >= 20 then 'Hot'
+       end as temp_category,
+       count(*) as days_count
+from londonweather
+group by temp_category
+limit 10;
 
 
 -- =====================================================================================
@@ -262,7 +298,10 @@ CREATE TABLE chicagoschools (
 -- Show: date, max_temp
 -- Limit output to 10 records.
 -- Write your query below.
-
+select date, max_temp
+from londonweather
+where max_temp > (select avg(max_temp) from londonweather)
+limit 10;
 
 
 -- =====================================================================================
@@ -273,7 +312,12 @@ CREATE TABLE chicagoschools (
 --   radiation_root using SQRT(global_radiation)
 -- Ignore rows where max_temp or global_radiation is NULL.
 -- Write your query below.
-
+select date,
+       ceil(max_temp) as rounded_up_max_temp,
+       sqrt(global_radiation) as radiation_root
+from londonweather
+where max_temp is not null and global_radiation is not null
+limit 10;
 
 
 -- =====================================================================================
@@ -283,7 +327,11 @@ CREATE TABLE chicagoschools (
 -- Show: primary_category, frequency
 -- Limit output to 10 records.
 -- Write your query below.
-
+select primary_category, count(*) as frequency
+from chicagoschools
+where primary_category != ''
+group by primary_category
+limit 10;
 
 
 -- =====================================================================================
@@ -292,7 +340,10 @@ CREATE TABLE chicagoschools (
 -- Ignore rows where short_name is empty.
 -- Show: short_name, primary_category
 -- Write your query below.
-
+select short_name, primary_category
+from chicagoschools
+where short_name like 'A%'
+limit 10;
 
 
 -- =====================================================================================
