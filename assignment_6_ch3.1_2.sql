@@ -34,7 +34,7 @@ CREATE TABLE nycflights (
     minute INTEGER
 );
 
-\copy nycflights FROM 'nycflights.csv' DELIMITER ',' CSV HEADER;
+\copy nycflights FROM 'nycflights-1.csv' DELIMITER ',' CSV HEADER;
 
 CREATE TABLE londonweather (
     date BIGINT,
@@ -49,7 +49,7 @@ CREATE TABLE londonweather (
     snow_depth REAL
 );
 
-\copy londonweather FROM 'london_weather.csv' DELIMITER ',' CSV HEADER;
+\copy londonweather FROM 'london_weather-1.csv' DELIMITER ',' CSV HEADER;
 
 -- Keep employee columns as TEXT because some values include formatting such as $ and commas.
 CREATE TABLE chicagoemployees (
@@ -166,7 +166,10 @@ CREATE TABLE chicagoschools (
 -- From nycflights, show the 10 flights with the largest departure delay.
 -- Show: carrier, flight, origin, dest, dep_delay
 -- Write your query below.
-
+SELECT carrier, flight, origin, dest, dep_delay
+FROM nycflights
+ORDER BY dep_delay DESC
+LIMIT 10;
 
 
 -- =====================================================================================
@@ -175,7 +178,10 @@ CREATE TABLE chicagoschools (
 -- Show: origin, frequency
 -- Limit output to 10 records.
 -- Write your query below.
-
+SELECT origin, COUNT(*) AS frequency
+FROM nycflights
+GROUP BY origin
+LIMIT 10;
 
 
 -- =====================================================================================
@@ -184,7 +190,11 @@ CREATE TABLE chicagoschools (
 -- Ignore rows where max_temp is NULL.
 -- Show: date, max_temp, sunshine
 -- Write your query below.
-
+SELECT date, max_temp, sunshine
+FROM londonweather
+WHERE max_temp IS NOT NULL
+ORDER BY max_temp DESC
+LIMIT 10;
 
 
 -- =====================================================================================
@@ -197,7 +207,16 @@ CREATE TABLE chicagoschools (
 -- Show: temp_category, days_count
 -- Limit output to 10 records.
 -- Write your query below.
-
+SELECT 
+    CASE 
+        WHEN max_temp < 10 THEN 'Cold'
+        WHEN max_temp >= 10 AND max_temp < 20 THEN 'Mild'
+        WHEN max_temp >= 20 THEN 'Hot'
+    END AS temp_category,
+    COUNT(*) AS days_count
+FROM londonweather
+GROUP BY temp_category
+LIMIT 10;
 
 
 -- =====================================================================================
@@ -205,7 +224,10 @@ CREATE TABLE chicagoschools (
 -- From chicagoemployees, show the first 10 full-time employees.
 -- Show: name, job_titles, salary_or_hourly
 -- Write your query below.
-
+SELECT name, job_titles, salary_or_hourly
+FROM chicagoemployees
+WHERE full_or_part_time = 'F'
+LIMIT 10;
 
 
 -- =====================================================================================
@@ -214,7 +236,10 @@ CREATE TABLE chicagoschools (
 -- Show: salary_or_hourly, frequency
 -- Limit output to 10 records.
 -- Write your query below.
-
+SELECT salary_or_hourly, COUNT(*) AS frequency
+FROM chicagoemployees
+GROUP BY salary_or_hourly
+LIMIT 10;
 
 
 -- =====================================================================================
@@ -223,7 +248,11 @@ CREATE TABLE chicagoschools (
 -- Ignore rows where student_count_total is empty.
 -- Show: short_name, primary_category, student_count_total
 -- Write your query below.
-
+SELECT short_name, primary_category, student_count_total
+FROM chicagoschools
+WHERE student_count_total IS NOT NULL
+ORDER BY student_count_total DESC
+LIMIT 10;
 
 
 -- =====================================================================================
@@ -233,5 +262,9 @@ CREATE TABLE chicagoschools (
 -- Show: primary_category, frequency
 -- Limit output to 10 records.
 -- Write your query below.
-
+SELECT primary_category, COUNT(*) AS frequency
+FROM chicagoschools
+WHERE primary_category IS NOT NULL
+GROUP BY primary_category
+LIMIT 10;
 
