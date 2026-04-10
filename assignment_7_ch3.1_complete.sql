@@ -34,7 +34,7 @@ CREATE TABLE nycflights (
     minute INTEGER
 );
 
-\copy nycflights FROM 'nycflights.csv' DELIMITER ',' CSV HEADER;
+\copy nycflights FROM 'nycflights-1.csv' DELIMITER ',' CSV HEADER;
 
 CREATE TABLE londonweather (
     date BIGINT,
@@ -49,7 +49,7 @@ CREATE TABLE londonweather (
     snow_depth REAL
 );
 
-\copy londonweather FROM 'london_weather.csv' DELIMITER ',' CSV HEADER;
+\copy londonweather FROM 'london_weather-1.csv' DELIMITER ',' CSV HEADER;
 
 -- Keep employee columns as TEXT because some values include formatting such as $ and commas.
 CREATE TABLE chicagoemployees (
@@ -255,7 +255,7 @@ from chicagoemployees;
 -- Write your query below.
 select name, job_titles, department
 from chicagoemployees
-where full_or_part_time = 'FULL-TIME' and job_titles like '%POLICE%'
+where full_or_part_time = 'F' and job_titles like '%POLICE%'
 limit 10;
 
 
@@ -287,6 +287,7 @@ select case when max_temp < 10 then 'Cold'
        end as temp_category,
        count(*) as days_count
 from londonweather
+where max_temp is not null
 group by temp_category
 limit 10;
 
@@ -353,6 +354,8 @@ limit 10;
 -- salary vs hourly employees suggest?
 -- Write your answer below as SQL comments.
 
+-- Answer: The distribution shows that around 77% of employees are salaried (24,849) 
+-- while only about 23% are hourly (7,255).
 
 
 -- =====================================================================================
@@ -362,4 +365,7 @@ limit 10;
 -- or concentrated in some destinations? Explain briefly.
 -- Write your answer below as SQL comments.
 
+-- Answer: Flights are more in major hub airports. The top few destinations 
+-- like ATL, ORD, and LAX account for a large portion of the volume compared to smaller regional 
+-- airports.
 
