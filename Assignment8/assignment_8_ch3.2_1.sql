@@ -60,8 +60,8 @@ CREATE TABLE nycflights (
 );
 
 -- Load the data.
-\copy london_weather FROM 'london_weather.csv' DELIMITER ',' CSV HEADER;
-\copy nycflights FROM 'nycflights.csv' DELIMITER ',' CSV HEADER;
+\copy london_weather FROM 'london_weather-2.csv' DELIMITER ',' CSV HEADER;
+\copy nycflights FROM 'nycflights-2.csv' DELIMITER ',' CSV HEADER;
 
 -- =========================================================
 -- Question 1
@@ -69,7 +69,7 @@ CREATE TABLE nycflights (
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q1__
+SELECT * FROM london_weather LIMIT 10;
 
 
 -- =========================================================
@@ -86,7 +86,15 @@ __Q1__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q2__
+SELECT 
+    COUNT(*) AS number_values,
+    COUNT(DISTINCT max_temp) AS cardinality,
+    MIN(max_temp) AS minimum,
+    MAX(max_temp) AS maximum,
+    MAX(max_temp) - MIN(max_temp) AS range,
+    AVG(max_temp) AS mean,
+    STDDEV(max_temp) AS standard_deviation
+FROM london_weather;
 
 
 -- =========================================================
@@ -103,7 +111,13 @@ __Q2__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q3__
+SELECT 
+    cloud_cover AS value,
+    COUNT(*) AS frequency
+FROM london_weather
+GROUP BY cloud_cover
+ORDER BY cloud_cover ASC
+LIMIT 10;
 
 
 -- =========================================================
@@ -119,7 +133,13 @@ __Q3__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q4__
+WITH Histogram(Value, Frequency) AS (
+    SELECT max_temp, COUNT(*) AS frequency
+    FROM london_weather
+    GROUP BY max_temp
+)
+SELECT (1.0 * SUM(Value * Frequency)) / SUM(Frequency) AS mean
+FROM Histogram;
 
 
 -- =========================================================
@@ -131,7 +151,21 @@ __Q4__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q5__
+WITH Trimmed AS (
+    SELECT mean_temp
+    FROM london_weather
+    WHERE mean_temp NOT IN (
+        SELECT MIN(mean_temp) FROM london_weather
+        UNION
+        SELECT MAX(mean_temp) FROM london_weather
+    )
+)
+SELECT (1.0 * SUM(Value * Frequency)) / SUM(Frequency) AS trimmed_mean
+FROM (
+    SELECT mean_temp AS Value, COUNT(*) AS Frequency
+    FROM Trimmed
+    GROUP BY mean_temp
+) AS Histogram;
 
 
 -- =========================================================
@@ -144,7 +178,8 @@ __Q5__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q6__
+SELECT EXP(AVG(LN(pressure))) AS geometric_mean
+FROM london_weather;
 
 
 -- =========================================================
@@ -160,7 +195,13 @@ __Q6__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q7__
+SELECT 
+    origin,
+    COUNT(*) AS frequency
+FROM nycflights
+GROUP BY origin
+ORDER BY frequency DESC
+LIMIT 10;
 
 
 -- =========================================================
@@ -170,7 +211,8 @@ __Q7__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q8__
+SELECT (1.0 * COUNT(*)) / SUM(1.0 / distance) AS harmonic_mean
+FROM nycflights;
 
 -- =========================================================
 -- Question 9
@@ -185,7 +227,13 @@ __Q8__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q9__
+SELECT 
+    carrier,
+    COUNT(*) AS frequency
+FROM nycflights
+GROUP BY carrier
+ORDER BY frequency DESC
+LIMIT 10;
 
 
 -- =========================================================
@@ -201,7 +249,13 @@ __Q9__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q10__
+SELECT 
+    origin,
+    AVG(distance) AS average_distance
+FROM nycflights
+GROUP BY origin
+ORDER BY average_distance DESC
+LIMIT 10;
 
 
 -- =========================================================
@@ -219,4 +273,11 @@ __Q10__
 -- =========================================================
 
 -- TODO: Write your query below.
-__Q11__
+WITH Histogram(Value, Frequency) AS (
+    SELECT dep_delay, COUNT(*) AS frequency
+    FROM nycflights
+    WHERE dep_delay IS NOT NULL
+    GROUP BY dep_delay
+)
+SELECT (1.0 * SUM(Value * Frequency)) / SUM(Frequency) AS mean
+FROM Histogram;
