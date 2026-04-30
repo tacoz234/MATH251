@@ -127,9 +127,9 @@ UNION ALL
 SELECT 'origin' AS attribute, entropy FROM OriginEntropy;
 
 -- Brief comment:
--- The origin attribute has a larger entropy in this dataset, indicating that
--- flights are more evenly distributed across the three airports than they are 
--- across the various carriers.
+-- The carrier attribute has a larger entropy (3.17) than origin (1.58),
+-- indicating more uncertainty and a wider distribution of flights across 
+-- the various airlines compared to the three origin airports.
 
 
 -- Question 5. Joint probability table.
