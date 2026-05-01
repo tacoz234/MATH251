@@ -1,0 +1,31 @@
+movie_id,title,year,genre,duration,director,avg_vote
+tt0111161,The Shawshank Redemption,1994,Drama,142,Frank Darabont,9.3
+tt0068646,The Godfather,1972,Crime,175,Francis Ford Coppola,9.2
+tt0468569,The Dark Knight,2008,Action,152,Christopher Nolan,9.0
+tt0050083,12 Angry Men,1957,Drama,96,Sidney Lumet,8.9
+tt0108052,Schindler's List,1993,Biography,195,Steven Spielberg,8.9
+tt0110912,Pulp Fiction,1994,Crime,154,Quentin Tarantino,8.9
+tt0167260,The Lord of the Rings: The Return of the King,2003,Action,201,Peter Jackson,8.9
+tt0109830,Forrest Gump,1994,Drama,142,Robert Zemeckis,8.8
+tt1375666,Inception,2010,Action,148,Christopher Nolan,8.8
+tt0137523,Fight Club,1999,Drama,139,David Fincher,8.8
+tt0073486,One Flew Over the Cuckoo's Nest,1975,Drama,133,Milos Forman,8.7
+tt0099685,Goodfellas,1990,Biography,146,Martin Scorsese,8.7
+tt0133093,The Matrix,1999,Action,136,Lana Wachowski,8.7
+tt0038650,It's a Wonderful Life,1946,Drama,130,Frank Capra,8.6
+tt0047478,Seven Samurai,1954,Action,207,Akira Kurosawa,8.6
+tt0102926,The Silence of the Lambs,1991,Crime,118,Jonathan Demme,8.6
+tt0114369,Se7en,1995,Crime,127,David Fincher,8.6
+tt0120689,The Green Mile,1999,Crime,189,Frank Darabont,8.6
+tt0120815,Saving Private Ryan,1998,Drama,169,Steven Spielberg,8.6
+tt0816692,Interstellar,2014,Adventure,169,Christopher Nolan,8.6
+tt6751668,Parasite,2019,Comedy,132,Bong Joon Ho,8.6
+tt0034583,Casablanca,1942,Drama,102,Michael Curtiz,8.5
+tt0054215,Psycho,1960,Horror,109,Alfred Hitchcock,8.5
+tt0088763,Back to the Future,1985,Adventure,116,Robert Zemeckis,8.5
+tt0110357,The Lion King,1994,Animation,88,Roger Allers,8.5
+tt0110413,Leon: The Professional,1994,Action,110,Luc Besson,8.5
+tt0114814,The Usual Suspects,1995,Crime,106,Bryan Singer,8.5
+tt0482571,The Prestige,2006,Drama,130,Christopher Nolan,8.5
+tt2582802,Whiplash,2014,Drama,106,Damien Chazelle,8.5
+tt0043014,Sunset Blvd.,1950,Drama,110,Billy Wilder,8.4
